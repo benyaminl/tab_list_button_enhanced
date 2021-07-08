@@ -510,10 +510,14 @@ var keyboard = {
 
 		misc.checkLoadingTab(id)
 		.then((tabInfo) => {
-			if (tabInfo.url != "about:addons")
-				icon.src = tabInfo.favIconUrl?tabInfo.favIconUrl:"";
-			else
-				icon.src = "";
+            if (tabInfo.url == "about:addons") {
+                icon.src = "";
+            } else if (tabInfo.favIconUrl === undefined) {                
+                icon.src = "chrome://branding/content/icon32.png";
+            } else {
+                icon.src = tabInfo.favIconUrl;
+            }
+            
 			misc.setItemInfo(id, tabInfo.title);
 			misc.setInfoToTitle(id);
 		});
@@ -620,7 +624,8 @@ var keyboard = {
 
 			case 98: // b
 			case 66: // B
-				keyboard.bookmarkKey();
+                if (e.key == "b" || e.key == "B")
+                    keyboard.bookmarkKey();
 				break;
 
 			case 112: // p
@@ -722,10 +727,14 @@ var mouse = {
 
 		misc.checkLoadingTab(id)
 		.then((tabInfo) => {			
-			if (tabInfo.url != "about:addons")
-				icon.src = tabInfo.favIconUrl?tabInfo.favIconUrl:"";
-			else
-				icon.src = "";						
+            if (tabInfo.url == "about:addons") {
+                icon.src = "";
+            } else if (tabInfo.favIconUrl === undefined) {                
+                icon.src = "chrome://branding/content/icon32.png";
+            } else {
+                icon.src = tabInfo.favIconUrl;
+            }
+
 			misc.setItemInfo(id, tabInfo.title);
 			misc.setInfoToTitle(id);
 		});
@@ -901,10 +910,14 @@ var session = {
 
 					misc.checkLoadingTab(tab.id)
 					.then((tabInfo) => {
-						if (tabInfo.url != "about:addons")
-							img.src = tabInfo.favIconUrl?tabInfo.favIconUrl:"";
-						else
-							img.src = "";
+						if (tabInfo.url == "about:addons") {
+                            img.src = "";
+                        } else if (tabInfo.favIconUrl === undefined) { 
+                            img.src = "chrome://branding/content/icon32.png";
+                        } else {
+                            img.src = tabInfo.favIconUrl;
+                        }                        
+							
 						img.title = tabInfo.title;
 						span.innerText = tabInfo.title;
 						span.title = tabInfo.title;
